@@ -3,6 +3,9 @@ from django.views import generic
 
 def index(request):
     return render(request, 'ecommerce/index.html')
+
+def products(request):
+    return render(request, 'ecommerce/products.html')	
 	
 def about(request):
     return render(request, 'ecommerce/about.html')
