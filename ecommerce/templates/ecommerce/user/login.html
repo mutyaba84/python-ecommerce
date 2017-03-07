@@ -1,5 +1,34 @@
 {% extends "ecommerce/base.html" %}
 
 {% block content %}
-	<h1>Login Page</h1>
+	<div class="container">
+		<form action="{% url 'ecommerce:user_login' %}" method="post">
+			{% csrf_token %}
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-heading">Login</div>
+					<div class="panel-body">
+						{% if error_message %}
+							<p class="bg-danger p-d ml-b">{{ error_message }}</p>
+						{% endif %}
+						<div class="form-group clearfix">
+							<label for="username" class="col-md-4 control-label text-right">Username:</label>
+							<div class="col-md-6">
+								<input name="username" value="" type="text" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label for="password" class="col-md-4 control-label text-right">Password:</label>
+							<div class="col-md-6">
+								<input name="password" type="password" class="form-control" />
+							</div>
+						</div>
+						<div class="col-md-6 col-md-offset-4">
+							<input name="login" type="submit" value="Login" class="btn btn-success" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 {% endblock %}
