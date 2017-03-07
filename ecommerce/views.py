@@ -14,7 +14,19 @@ def about(request):
     
 def contact(request):
     return render(request, 'ecommerce/contact.html')
- 
+
+def user_login(request):
+    return render(request, 'ecommerce/user/login.html')
+	
+def user_account(request):
+    return render(request, 'ecommerce/user/account.html')
+	
+def user_products(request):
+    return render(request, 'ecommerce/user/products.html')
+
+def user_register(request):
+    return render(request, 'ecommerce/user/register.html')
+	
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect('/ecommerce/') # Redirect after logout
