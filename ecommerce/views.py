@@ -19,7 +19,8 @@ def contact(request):
     return render(request, 'ecommerce/contact.html')
 
 def user_login(request):
-    if request.user.is_authenticated():
+    # Redirect if already logged-in
+	if request.user.is_authenticated():
         return HttpResponseRedirect('/ecommerce/user/account')
     
     if request.method == 'POST':
@@ -41,19 +42,22 @@ def user_login(request):
         return render(request, 'ecommerce/user/login.html')
  
 def user_account(request):
-    if request.user.is_authenticated() == False:
-        return HttpResponseRedirect('/ecommerce/user/login')
+    # Redirect if not logged-in
+	if request.user.is_authenticated() == False:
+        return HttpResponseRedirect('/ecommerce/user/login') 
         
     return render(request, 'ecommerce/user/account.html')
 
 def user_products(request):
-    if request.user.is_authenticated() == False:
+    # Redirect if not logged-in
+	if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login')
         
     return render(request, 'ecommerce/user/products.html')
 
 def user_register(request):
-    if request.user.is_authenticated():
+    # Redirect if already logged-in
+	if request.user.is_authenticated():
         return HttpResponseRedirect('/ecommerce/user/account')
     
     # if this is a POST request we need to process the form data
