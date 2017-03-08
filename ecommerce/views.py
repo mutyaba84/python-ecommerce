@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout as django_logout # Use alias like "django_logout" so that django doesnt get confused on which function to use.
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required # So you can use @login_required on top of method to protect the view.
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import RegisterForm
@@ -25,20 +26,20 @@ def user_login(request):
         # Check username and password combination if correct
         user = authenticate(username=username, password=password)
         if user is not None:
-            # Save session as cookie to login the user
-            login(request, user)
             # Success, now let's login the user. 
-            return render(request, 'ecommerce/user/account.html')
+            login(request, user)
+            # Then redirect to the accounts page.
+			return HttpResponseRedirect('/ecommerce/user/account')
         else:
             # Incorrect credentials, let's throw an error to the screen.
             return render(request, 'ecommerce/user/login.html', {'error_message': 'Incorrect username and / or password.'})
     else:
         # No post data availabe, let's just show the page to the user.
         return render(request, 'ecommerce/user/login.html')
-        
+ 
 def user_account(request):
-    return render(request, 'ecommerce/user/account.html')
-    
+	return render(request, 'ecommerce/user/account.html')
+
 def user_products(request):
     return render(request, 'ecommerce/user/products.html')
 
