@@ -19,6 +19,9 @@ def contact(request):
     return render(request, 'ecommerce/contact.html')
 
 def user_login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/ecommerce/user/account')
+    
     if request.method == 'POST':
         # Process the request if posted data are available
         username = request.POST['username']
@@ -29,7 +32,7 @@ def user_login(request):
             # Success, now let's login the user. 
             login(request, user)
             # Then redirect to the accounts page.
-			return HttpResponseRedirect('/ecommerce/user/account')
+            return HttpResponseRedirect('/ecommerce/user/account')
         else:
             # Incorrect credentials, let's throw an error to the screen.
             return render(request, 'ecommerce/user/login.html', {'error_message': 'Incorrect username and / or password.'})
@@ -38,12 +41,21 @@ def user_login(request):
         return render(request, 'ecommerce/user/login.html')
  
 def user_account(request):
-	return render(request, 'ecommerce/user/account.html')
+    if request.user.is_authenticated() == False:
+        return HttpResponseRedirect('/ecommerce/user/login')
+        
+    return render(request, 'ecommerce/user/account.html')
 
 def user_products(request):
+    if request.user.is_authenticated() == False:
+        return HttpResponseRedirect('/ecommerce/user/login')
+        
     return render(request, 'ecommerce/user/products.html')
 
 def user_register(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/ecommerce/user/account')
+    
     # if this is a POST request we need to process the form data
     template = 'ecommerce/user/register.html'
     
