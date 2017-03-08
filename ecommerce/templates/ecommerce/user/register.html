@@ -3,6 +3,7 @@
 {% block content %}
 	<div class="container">
 		<form action="{% url 'ecommerce:user_register' %}" method="post">
+			{% csrf_token %}
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-heading">Register</div>
@@ -10,40 +11,47 @@
 						{% if error_message %}
 							<p class="bg-danger p-d ml-b">{{ error_message }}</p>
 						{% endif %}
+						
 						<div class="form-group clearfix">
-							<label class="col-md-4 control-label text-right">Email<span class="text-red">*</span>:</label>
+							<label for="{{ form.username.id_for_label }}" class="col-md-4 control-label text-right">Username<span class="text-red">*</span>:</label>
 							<div class="col-md-6">
-								<input type="text" name="email" value="" class="form-control">
+								{{ form.username }}
 							</div>
 						</div>
 						<div class="form-group clearfix">
-							<label class="col-md-4 control-label text-right">Password<span class="text-red">*</span>:</label>
+							<label for="{{ form.email.id_for_label }}" class="col-md-4 control-label text-right">Email<span class="text-red">*</span>:</label>
 							<div class="col-md-6">
-								<input type="password" name="password" value="" class="form-control" />
+								{{ form.email }}
 							</div>
 						</div>
 						<div class="form-group clearfix">
-							<label class="col-md-4 control-label text-right">Confirm password:</label>
+							<label for="{{ form.password.id_for_label }}" class="col-md-4 control-label text-right">Password<span class="text-red">*</span>:</label>
 							<div class="col-md-6">
-								<input type="password" name="password2" value="" class="form-control" />
+								{{ form.password }}
 							</div>
 						</div>
 						<div class="form-group clearfix">
-							<label class="col-md-4 control-label text-right">First Name:</label>
+							<label for="{{ form.password_repeat.id_for_label }}" class="col-md-4 control-label text-right">Confirm password:</label>
 							<div class="col-md-6">
-								<input type="first_name" name="first_name" value="" class="form-control" />
+								{{ form.password_repeat }}
 							</div>
 						</div>
 						<div class="form-group clearfix">
-							<label class="col-md-4 control-label text-right">Last Name:</label>
+							<label for="{{ form.first_name.id_for_label }}" class="col-md-4 control-label text-right">First Name:</label>
 							<div class="col-md-6">
-								<input type="last_name" name="last_name" value="" class="form-control" />
+								{{ form.first_name }}
 							</div>
 						</div>
 						<div class="form-group clearfix">
-							<label class="col-md-4 control-label text-right">Phone Number:</label>
+							<label for="{{ form.last_name.id_for_label }}" class="col-md-4 control-label text-right">Last Name:</label>
 							<div class="col-md-6">
-								<input type="phone_number" name="phone_number" value="" class="form-control" />
+								{{ form.last_name }}
+							</div>
+						</div>
+						<div class="form-group clearfix">
+							<label for="{{ form.phone_number.id_for_label }}" class="col-md-4 control-label text-right">Phone Number:</label>
+							<div class="col-md-6">
+								{{ form.phone_number }}
 							</div>
 						</div>
 						<div class="col-md-6 col-md-offset-4">
