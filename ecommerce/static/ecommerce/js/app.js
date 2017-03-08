@@ -493,7 +493,6 @@ var app = {
 		 */
 		this.init = function() {
 			this.set_ckeditor();
-			this.set_datepicker();
 		}
 		
 		/**
@@ -502,17 +501,6 @@ var app = {
 		this.set_ckeditor = function() {
 			if($('#ck-editor-area').length){
 				load_ckeditor('ck-editor-area', 300);
-			}
-		}
-		
-		/**
-		 * Load CKEditor plugin
-		 */
-		this.set_datepicker = function() {
-			if('.datepicker'){
-				$('.datepicker').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm:ss'
-                });
 			}
 		}
 	}
