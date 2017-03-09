@@ -11,7 +11,7 @@
 						<div class="form-group clearfix">
 							<label class="col-md-3 control-label text-right">Email<span class="text-danger">*</span>:</label>
 							<div class="col-md-7">
-								<input type="text" name="email" value="" class="form-control">
+								<input type="text" name="email" value="{{ user.email }}" class="form-control">
 							</div>
 						</div>
 						<div class="form-group clearfix">
@@ -35,25 +35,25 @@
 						<div class="form-group clearfix">
 							<label class="col-md-3 control-label text-right">First Name:</label>
 							<div class="col-md-7">
-								<input type="first_name" name="first_name" value="" class="form-control" />
+								<input type="first_name" name="first_name" value="{{ user.first_name }}" class="form-control" />
 							</div>
 						</div>
 						<div class="form-group clearfix">
 							<label class="col-md-3 control-label text-right">Last Name:</label>
 							<div class="col-md-7">
-								<input type="last_name" name="last_name" value="" class="form-control" />
+								<input type="last_name" name="last_name" value="{{ user.last_name }}" class="form-control" />
 							</div>
 						</div>
 						<div class="form-group clearfix">
 							<label class="col-md-3 control-label text-right">Phone Number:</label>
 							<div class="col-md-7">
-								<input type="phone_number" name="phone_number" value="" class="form-control" />
+								<input type="phone_number" name="phone_number" value="{{ user.member.phone_number }}" class="form-control" />
 							</div>
 						</div>
 						<div class="form-group clearfix">
 							<label class="col-md-3 control-label text-right">About Me:</label>
 							<div class="col-md-7">
-								<textarea name="about_me" id="ck-editor-area" class="form-control"></textarea>
+								<textarea name="about_me" id="ck-editor-area" class="form-control">{{ user.member.about }}</textarea>
 							</div>
 						</div>
 						<div class="col-md-7 col-md-offset-3">
