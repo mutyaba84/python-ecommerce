@@ -45,8 +45,29 @@ def user_account(request):
     # Redirect if not logged-in
     if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login') 
+    
+    if request.method == 'POST':
+        # Query data of currently logged-in user.
+        user = User.objects.get(username=request.user.username)
         
-    return render(request, 'ecommerce/user/account.html')
+        # Save posted fields.
+        user.username = request.POST['username']
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        
+        # user.old_password = request.POST['old_password']
+        # user.password = request.POST['password']
+        # user.password_confirm = request.POST['password_confirm']
+        
+        user.member.phone_number = request.POST['phone_number']
+        user.member.about = request.POST['about_me']
+        
+        user.member.save()
+        user.save()
+            
+        return render(request, 'ecommerce/user/account.html')
+    else:    
+        return render(request, 'ecommerce/user/account.html')
 
 def user_products(request):
     # Redirect if not logged-in
