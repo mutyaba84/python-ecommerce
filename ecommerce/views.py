@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required # So you can use @login_required on top of method to protect the view.
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from .forms import RegisterForm
 
 
@@ -42,6 +43,8 @@ def user_login(request):
         return render(request, 'ecommerce/user/login.html')
  
 def user_account(request):
+    err_succ = {'status': 0, 'message': 'An unknown error occured'}
+    
     # Redirect if not logged-in
     if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login') 
@@ -65,7 +68,7 @@ def user_account(request):
         user.member.save()
         user.save()
             
-        return render(request, 'ecommerce/user/account.html')
+        return JsonResponse(err_succ)
     else:    
         return render(request, 'ecommerce/user/account.html')
 
