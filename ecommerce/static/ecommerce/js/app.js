@@ -120,8 +120,6 @@ var app = {
 					type: 'POST',
 					data: data,
 					success: function (response) {
-						response = JSON.parse(response);
-						
 						if($(".pagination-container").html(response.content)){
 							$('.pagination-nav').html(response.navigation);
 							$('.table-post-list th').each(function() {
@@ -204,8 +202,6 @@ var app = {
 					type: 'POST',
 					data: data,
 					success: function (response) {
-						response = JSON.parse(response);
-						
 						if($(".pagination-container").html(response.content)){
 							$('.pagination-nav').html(response.navigation);
 							$('.table-post-list th').each(function() {
@@ -235,8 +231,6 @@ var app = {
 					wave_box('on');
 				},
 				success: function(response, textStatus, xhr, form) {
-					response = JSON.parse(response);
-					
 					if(response.status == 0){
 						if($.isArray(response.errors)){
 							$.each(response.errors, function (key, error_nessage) {
@@ -350,7 +344,6 @@ var app = {
 						'image': this.id.split('-')[1]
 					},
 					success: function (response) {
-						response = JSON.parse(response);
 						if(response.status == '1'){
 							parent_element.fadeOut();
 							Lobibox.notify('success', {msg: response.message, size: 'mini', sound: false});
@@ -389,7 +382,6 @@ var app = {
 						},
 						datatype: 'JSON',
 						success: function (response) {
-							response = JSON.parse(response);
 							
 							if(response.status == '1'){
 								if($('.images-section').find('span.glyphicon-star').switchClass('glyphicon-star', 'glyphicon-star-empty').removeAttr('style')){
@@ -464,7 +456,6 @@ var app = {
 					wave_box('on');
 				},
 				success: function(response, textStatus, xhr, form) {
-					response = JSON.parse(response);
 					
 					if(response.status == 0){
 						Lobibox.notify('error', {msg: response.message, size: 'mini', sound: false});
