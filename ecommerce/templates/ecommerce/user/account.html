@@ -10,6 +10,12 @@
 					<div class="panel-heading">My Account</div>
 					<div class="panel-body">
 						<div class="form-group clearfix">
+							<label class="col-md-3 control-label text-right">Username<span class="text-danger">*</span>:</label>
+							<div class="col-md-7">
+								<input type="text" name="username" value="{{ user.username }}" class="form-control">
+							</div>
+						</div>
+						<div class="form-group clearfix">
 							<label class="col-md-3 control-label text-right">Email<span class="text-danger">*</span>:</label>
 							<div class="col-md-7">
 								<input type="text" name="email" value="{{ user.email }}" class="form-control">
