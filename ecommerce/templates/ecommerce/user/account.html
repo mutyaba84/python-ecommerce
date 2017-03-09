@@ -4,6 +4,7 @@
 	<div class="container wave-box-wrapper">
 		<div class="wave-box"></div>
 		<form action="{% url 'ecommerce:user_account' %}" method="post" class="update-account">
+			{% csrf_token %}
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">
 					<div class="panel-heading">My Account</div>
