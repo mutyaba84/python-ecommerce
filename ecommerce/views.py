@@ -20,7 +20,7 @@ def contact(request):
 
 def user_login(request):
     # Redirect if already logged-in
-	if request.user.is_authenticated():
+    if request.user.is_authenticated():
         return HttpResponseRedirect('/ecommerce/user/account')
     
     if request.method == 'POST':
@@ -43,21 +43,21 @@ def user_login(request):
  
 def user_account(request):
     # Redirect if not logged-in
-	if request.user.is_authenticated() == False:
+    if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login') 
         
     return render(request, 'ecommerce/user/account.html')
 
 def user_products(request):
     # Redirect if not logged-in
-	if request.user.is_authenticated() == False:
+    if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login')
         
     return render(request, 'ecommerce/user/products.html')
 
 def user_register(request):
     # Redirect if already logged-in
-	if request.user.is_authenticated():
+    if request.user.is_authenticated():
         return HttpResponseRedirect('/ecommerce/user/account')
     
     # if this is a POST request we need to process the form data
