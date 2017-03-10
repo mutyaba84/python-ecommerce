@@ -9,7 +9,8 @@
 				Create Product
 			</div>
 			<div class="panel-body">
-				<form method="post" action="inc/ajax/products/create.php" class="create-product">
+				<form method="post" action="{% url 'ecommerce:user_product_create' %}" class="create-product">
+					{% csrf_token %}
 					<div class="col-md-8">
 						<div class="form-group">
 							<label>Name*</label>

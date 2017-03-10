@@ -10,7 +10,8 @@
 			</div>
 			<div class="panel-body wave-box-wrapper">
 				<div class="wave-box"></div>
-				<form method="post" action="inc/ajax/products/update.php" class="update-product">
+				<form method="post" action="{% url 'ecommerce:user_product_update' %}" class="update-product">
+					{% csrf_token %}
 					<input type="hidden" name="item_id" value="">
 					<div class="col-md-8">
 						<div class="form-group">
