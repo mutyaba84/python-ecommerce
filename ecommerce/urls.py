@@ -14,6 +14,8 @@ urlpatterns = [
 		url(r'^register/$', views.user_register, name='user_register'),
 		url(r'^account/$', views.user_account, name='user_account'),
 		url(r'^products/$', views.user_products, name='user_products'),
+		url(r'^product/create/$', views.user_product_create, name='user_product_create'),
+		url(r'^product/update/$', views.user_product_update, name='user_product_update'),
 		url(r'^logout/$', views.logout),
     ])),
 ]

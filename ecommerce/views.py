@@ -12,7 +12,7 @@ def index(request):
     return render(request, 'ecommerce/index.html')
 
 def products(request):
-    return render(request, 'ecommerce/products.html')    
+    return render(request, 'ecommerce/product/index.html')    
     
 def about(request):
     return render(request, 'ecommerce/about.html')
@@ -100,7 +100,21 @@ def user_products(request):
     if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login')
         
-    return render(request, 'ecommerce/user/products.html')
+    return render(request, 'ecommerce/product/user.html')
+	
+def user_product_create(request):
+    # Redirect if not logged-in
+    if request.user.is_authenticated() == False:
+        return HttpResponseRedirect('/ecommerce/user/login')
+        
+    return render(request, 'ecommerce/product/create.html')
+	
+def user_product_update(request):
+    # Redirect if not logged-in
+    if request.user.is_authenticated() == False:
+        return HttpResponseRedirect('/ecommerce/user/login')
+        
+    return render(request, 'ecommerce/product/update.html')
 
 def user_register(request):
     # Redirect if already logged-in
