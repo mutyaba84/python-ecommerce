@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout as django_logout # Use alias like "django_logout" so that django doesnt get confused on which function to use.
 from django.contrib.auth.models import User
+from ecommerce.models import Member
 from django.contrib.auth.decorators import login_required # So you can use @login_required on top of method to protect the view.
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -53,20 +54,42 @@ def user_account(request):
         # Query data of currently logged-in user.
         user = User.objects.get(username=request.user.username)
         
-        # Save posted fields.
-        user.username = request.POST['username']
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
+        # Check if username exists
+        if User.objects.filter(username=request.POST['username']).exists() and user.username != request.POST['username']:
+            err_succ['message'] = 'Username aleady taken, please enter a different one.'
         
-        # user.old_password = request.POST['old_password']
-        # user.password = request.POST['password']
-        # user.password_confirm = request.POST['password_confirm']
-        
-        user.member.phone_number = request.POST['phone_number']
-        user.member.about = request.POST['about_me']
-        
-        user.member.save()
-        user.save()
+        # Check if email exists        
+        elif User.objects.filter(email=request.POST['email']).exists() and user.email != request.POST['email']:
+            err_succ['message'] = 'Email already taken, please enter a different one'
+            
+        elif request.POST['old_password'] and request.POST['password_repeat'] and request.POST['password']:
+            # Check if passwords match
+            if request.POST['password_repeat'] != request.POST['password']:
+                err_succ['message'] = 'New password do not match.'
+            
+            # Check if old password is correct
+            elif not user.check_password(request.POST['old_password']):
+                err_succ['message'] = 'Incorrect old password.'
+                
+        else:
+            user.username = request.POST['username']
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            
+            user.member.phone_number = request.POST['phone_number']
+            user.member.about = request.POST['about_me']
+            
+            # Save new password if passes above validations
+            if request.POST['password']:
+                user.set_password(request.POST['password'])
+            
+            # Save posted fields to their respective tables
+            user.member.save()
+            user.save()
+            
+            # Show success message
+            err_succ['status'] = 1
+            err_succ['message'] = 'Account successfully updated.'
             
         return JsonResponse(err_succ)
     else:    
@@ -116,7 +139,14 @@ def user_register(request):
                 )
                 user.first_name = form.cleaned_data['first_name']
                 user.last_name = form.cleaned_data['last_name']
-                user.phone_number = form.cleaned_data['phone_number']
+                
+                member = Member.objects.create(
+                    user = user,
+                    phone_number = form.cleaned_data['phone_number'],
+                    about = ''
+                )
+                
+                member.save()
                 user.save()
                 
                 # Login the user
