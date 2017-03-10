@@ -1,5 +1,56 @@
 {% extends "ecommerce/base.html" %}
 
 {% block content %}
-	<h1>Create Product</h1>
+	<div class="container">
+		<p class="ml-b"><a href = "/ecommerce/user/products" class="ml-b text-success"><span class="glyphicon glyphicon-chevron-left"></span> All products</a></p>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Create Product
+			</div>
+			<div class="panel-body">
+				<form method="post" action="inc/ajax/products/create.php" class="create-product">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Name*</label>
+							<input type="text" class="form-control required" name="name" value="" />
+						</div>
+						<div class="form-group">
+							<label>Description</label>
+							<textarea id="ck-editor-area" class="form-control" name="content"></textarea>
+						</div>
+						<div class="form-group">
+							<label>Short Description</label>
+							<textarea class="form-control" name="excerpt" rows="7"></textarea>
+						</div>
+						<div class = "form-group">
+							<label>Select Product Images</label>
+							<input type = "file" name = "files[]" accept = "image/*" class = "form-control" multiple />
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Price*</label>
+							<div class="input-group">
+								<div class="input-group-addon">$</div>
+								<input type="text" class="form-control required" name="price" value="" placeholder="Amount">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Status</label>
+							<select class="form-control" name="status">
+								<option value="1">Active</option>
+								<option value="0">Inactive</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Quantity*</label>
+							<input type="number" class="form-control required" name="quantity" value="" />
+						</div>
+						<input type="submit" class="btn btn-success" value="Submit" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 {% endblock %}
