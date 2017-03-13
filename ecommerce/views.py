@@ -130,9 +130,9 @@ def user_product_create(request):
     
     
 def user_product_update(request, product_id):
-	product = get_object_or_404(Product, pk=product_id) # Query object of given product id
+    product = get_object_or_404(Product, pk=product_id) # Query object of given product id
     err_succ = {'status': 0, 'message': 'An unknown error occured'}
-    
+        
     # Redirect if not logged-in
     if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login')
