@@ -286,7 +286,7 @@ var app = {
 					if(response == 0){
 						Lobibox.notify('error', {msg: response.message, size: 'mini', sound: false});
 					} else {
-						window.location.href = '/ecommerce/user/product/' + response.message + '?status=created';
+						window.location.href = '/ecommerce/user/product/update/' + response.message + '?status=created';
 					}
 				}
             });
