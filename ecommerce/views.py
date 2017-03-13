@@ -101,20 +101,32 @@ def user_products(request):
         return HttpResponseRedirect('/ecommerce/user/login')
         
     return render(request, 'ecommerce/product/user.html')
-	
+    
 def user_product_create(request):
+    err_succ = {'status': 0, 'message': 'An unknown error occured'}
+    
     # Redirect if not logged-in
     if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login')
-        
-    return render(request, 'ecommerce/product/create.html')
-	
+    
+    if request.method == 'POST':
+        return JsonResponse(err_succ)
+    else:    
+        return render(request, 'ecommerce/product/create.html')
+    
+    
 def user_product_update(request):
-    # Redirect if not logged-in
+    err_succ = {'status': 0, 'message': 'An unknown error occured'}
+	
+	# Redirect if not logged-in
     if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login')
-        
-    return render(request, 'ecommerce/product/update.html')
+    
+    if request.method == 'POST':
+                
+        return JsonResponse(err_succ)
+    else:    
+        return render(request, 'ecommerce/product/update.html')
 
 def user_register(request):
     # Redirect if already logged-in
