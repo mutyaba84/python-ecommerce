@@ -284,9 +284,9 @@ var app = {
 				},
 				success: function(response, textStatus, xhr, form) {
 					if(response == 0){
-						Lobibox.notify('error', {msg: 'Failed to create the product, please try again', size: 'mini', sound: false});
+						Lobibox.notify('error', {msg: response.message, size: 'mini', sound: false});
 					} else {
-						window.location.href = '/ecommerce/user/product/update?id=' + response + '&status=created';
+						window.location.href = '/ecommerce/user/product/update?id=' + response.message + '&status=created';
 					}
 				}
             });
