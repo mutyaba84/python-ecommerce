@@ -12,7 +12,7 @@ class Product(models.Model):
     excerpt = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     status = models.IntegerField(default=0)
-    date = models.DateTimeField('date published')
+    date = models.DateTimeField(auto_now_add=True)
     quantity = models.PositiveIntegerField()
     author = models.PositiveIntegerField()
     featured_image = models.CharField(max_length=300)
