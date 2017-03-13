@@ -112,11 +112,12 @@ var app = {
 				
 				var data = {
 					action: "demo_load_my_posts",
+					csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
 					data: JSON.parse($('form.post-list input').val())
 				};
 				
 				$.ajax({
-					url: 'inc/ajax/products/view.php',
+					url: '/ecommerce/user/products/',
 					type: 'POST',
 					data: data,
 					success: function (response) {
