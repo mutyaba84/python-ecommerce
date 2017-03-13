@@ -15,7 +15,7 @@ urlpatterns = [
 		url(r'^account/$', views.user_account, name='user_account'),
 		url(r'^products/$', views.user_products, name='user_products'),
 		url(r'^product/create/$', views.user_product_create, name='user_product_create'),
-		url(r'^product/update/$', views.user_product_update, name='user_product_update'),
+		url(r'^product/update/(?P<product_id>[0-9]+)/$', views.user_product_update, name='user_product_update'),
 		url(r'^logout/$', views.logout),
     ])),
 ]
