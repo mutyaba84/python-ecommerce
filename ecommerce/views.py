@@ -1,10 +1,10 @@
 from django.contrib.auth import authenticate, login, logout as django_logout # Use alias like "django_logout" so that django doesnt get confused on which function to use.
 from django.contrib.auth.models import User
-from ecommerce.models import Member
 from django.contrib.auth.decorators import login_required # So you can use @login_required on top of method to protect the view.
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
+from .models import Member, Product
 from .forms import RegisterForm
 
 
@@ -110,23 +110,38 @@ def user_product_create(request):
         return HttpResponseRedirect('/ecommerce/user/login')
     
     if request.method == 'POST':
+        product = Product.objects.create(
+            name = request.POST['name'],
+            content = request.POST['content'],
+            excerpt = request.POST['excerpt'],
+            price = request.POST['price'],
+            status = request.POST['status'],
+            quantity = request.POST['quantity'],
+            author = request.user.id
+        )    
+        product.save()
+        
+        err_succ['status'] = 1
+        err_succ['message'] = product.id
+        
         return JsonResponse(err_succ)
     else:    
         return render(request, 'ecommerce/product/create.html')
     
     
-def user_product_update(request):
+def user_product_update(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
     err_succ = {'status': 0, 'message': 'An unknown error occured'}
-	
-	# Redirect if not logged-in
+    
+    # Redirect if not logged-in
     if request.user.is_authenticated() == False:
         return HttpResponseRedirect('/ecommerce/user/login')
     
     if request.method == 'POST':
-                
+                    
         return JsonResponse(err_succ)
     else:    
-        return render(request, 'ecommerce/product/update.html')
+        return render(request, 'ecommerce/product/update.html', {'product': product})
 
 def user_register(request):
     # Redirect if already logged-in
