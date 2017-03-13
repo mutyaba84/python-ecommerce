@@ -233,8 +233,8 @@ var app = {
 				success: function(response, textStatus, xhr, form) {
 					if(response.status == 0){
 						if($.isArray(response.errors)){
-							$.each(response.errors, function (key, error_nessage) {
-								Lobibox.notify('error', {msg: error_nessage, size: 'mini', sound: false});
+							$.each(response.errors, function (key, error_message) {
+								Lobibox.notify('error', {msg: error_message, size: 'mini', sound: false});
 							});
 						}
 					}
@@ -286,7 +286,7 @@ var app = {
 					if(response == 0){
 						Lobibox.notify('error', {msg: 'Failed to create the product, please try again', size: 'mini', sound: false});
 					} else {
-						window.location.href = 'user-products-edit.php?id=' + response + '&status=created';
+						window.location.href = '/ecommerce/user/product/update?id=' + response + '&status=created';
 					}
 				}
             });
