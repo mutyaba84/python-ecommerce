@@ -130,7 +130,7 @@ def user_product_create(request):
     
     
 def user_product_update(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
+	product = get_object_or_404(Product, pk=product_id) # Query object of given product id
     err_succ = {'status': 0, 'message': 'An unknown error occured'}
     
     # Redirect if not logged-in
@@ -141,7 +141,7 @@ def user_product_update(request, product_id):
                     
         return JsonResponse(err_succ)
     else:    
-        return render(request, 'ecommerce/product/update.html', {'product': product})
+        return render(request, 'ecommerce/product/update.html', {'product': product}) # Include product object when rendering the view.
 
 def user_register(request):
     # Redirect if already logged-in
