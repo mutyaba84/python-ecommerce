@@ -12,7 +12,68 @@ def index(request):
 	return render(request, 'ecommerce/index.html')
 
 def products(request):
-	return render(request, 'ecommerce/product/index.html')	
+	if request.method == 'POST':
+		pagination_content = ""
+		page_number = request.POST['data[page]'] if request.POST['data[page]'] else 1
+		page = int(page_number)
+		name = request.POST['data[name]']
+		sort = '-' if request.POST['data[sort]'] == 'DESC' else ''
+		search = request.POST['data[search]']
+		max = int(request.POST['data[max]'])
+		
+		cur_page = page
+		page -= 1
+		per_page = max # Set the number of results to display
+		start = page * per_page
+		
+		# If search keyword is not empty, we include a query for searching 
+		# the "content" or "name" fields in the database for any matched strings.
+		if search:		 
+			all_posts = Product.objects.filter(Q(content__contains = search) | Q(name__contains = search)).order_by(sort + name)[start:per_page]
+			count = Product.objects.filter(Q(content__contains = search) | Q(name__contains = search)).count()
+			
+		else:
+			all_posts = Product.objects.order_by(sort + name)[start:cur_page * max]
+			count = Product.objects.count()
+		
+		if all_posts:
+			for post in all_posts:
+				pagination_content += '''
+					<div class='col-sm-3'>
+						<div class='panel panel-default'>
+							<div class='panel-heading'>%s</div>
+							<div class='panel-body p-0 p-b'>
+								<a href='%s'>
+									<img src='/uploads/%s' width='%s' class='img-responsive'>
+								</a>
+								<div class='list-group m-0'>
+									<div class='list-group-item b-0 b-t'>
+										<i class='fa fa-calendar-o fa-2x pull-left ml-r'></i>
+										<p class='list-group-item-text'>Price</p>
+										<h4 class='list-group-item-heading'>$%s</h4>
+									</div>
+									<div class='list-group-item b-0 b-t'>
+										<i class='fa fa-calendar fa-2x pull-left ml-r'></i>
+										<p class='list-group-item-text'>On Stock</p>
+										<h4 class='list-group-item-heading'>%d</h4>
+									</div>
+								</div>
+							</div> 
+							<div class='panel-footer'>
+								<a href='#' class='btn btn-primary btn-block'>View Item</a>
+							</div>
+						</div>
+					</div>
+				''' %(post.name, '/ecommerce/user/product/update/' + str(post.id), post.featured_image, '100%', post.price, post.quantity)
+		else:
+			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
+		
+		return JsonResponse({
+			'content': pagination_content, 
+			'navigation': Helpers.nagivation_list(count, per_page, cur_page)
+		})
+	else:	
+		return render(request, 'ecommerce/product/index.html')
 	
 def about(request):
 	return render(request, 'ecommerce/about.html')

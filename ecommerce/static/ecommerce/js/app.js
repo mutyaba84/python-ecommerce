@@ -195,11 +195,12 @@ var app = {
 				
 				var data = {
 					action: 'get-all-products',
+					csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
 					data: JSON.parse($('form.post-list input').val())
 				};
 				
 				$.ajax({
-					url: 'inc/ajax/products/view-front.php',
+					url: '/ecommerce/products/',
 					type: 'POST',
 					data: data,
 					success: function (response) {
