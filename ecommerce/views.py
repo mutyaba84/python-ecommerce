@@ -128,7 +128,7 @@ def user_products(request):
 		
 		if all_posts:
 			for post in all_posts:
-				pagination_content += str(start) + "-" + str(per_page) +  '''
+				pagination_content += '''
 					<tr>
 						<td><img src='/uploads/%s' width='100' /></td>
 						<td>%s</td>
@@ -147,7 +147,7 @@ def user_products(request):
 					</tr>
 				''' %(post.featured_image, post.name, post.price, post.status, post.date, post.quantity, post.id)
 		else:
-			pagination_content += str(start) + "-" + str(per_page) + "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
+			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
 		
 		return JsonResponse({
 			'content': pagination_content, 
