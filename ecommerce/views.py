@@ -137,7 +137,7 @@ def user_products(request):
 						<td>%s</td>
 						<td>%s</td>
 						<td>
-							<a href='#' class='text-success'>  
+							<a href='%s' class='text-success'>  
 								<span class='glyphicon glyphicon-pencil' title='Edit'></span>
 							</a> &nbsp; &nbsp;
 							<a href='#' class='text-danger delete-product' item_id='%s'>
@@ -145,7 +145,7 @@ def user_products(request):
 							</a>
 						</td>
 					</tr>
-				''' %(post.featured_image, post.name, post.price, post.status, post.date, post.quantity, post.id)
+				''' %(post.featured_image, post.name, post.price, post.status, post.date, post.quantity, '/ecommerce/user/product/update/' + str(post.id),  post.id)
 		else:
 			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
 		
