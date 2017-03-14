@@ -123,12 +123,12 @@ def user_products(request):
 			count = Product.objects.filter(Q(content__contains = search) | Q(name__contains = search), author = request.user.id).count()
 			
 		else:
-			all_posts = Product.objects.filter(author = request.user.id).order_by(sort + name)[start:per_page]
+			all_posts = Product.objects.filter(author = request.user.id).order_by(sort + name)[start:cur_page * max]
 			count = Product.objects.filter(author = request.user.id).count()
 		
 		if all_posts:
 			for post in all_posts:
-				pagination_content += '''
+				pagination_content += str(start) + "-" + str(per_page) +  '''
 					<tr>
 						<td><img src='/uploads/%s' width='100' /></td>
 						<td>%s</td>
@@ -147,7 +147,7 @@ def user_products(request):
 					</tr>
 				''' %(post.featured_image, post.name, post.price, post.status, post.date, post.quantity, post.id)
 		else:
-			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
+			pagination_content += str(start) + "-" + str(per_page) + "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
 		
 		return JsonResponse({
 			'content': pagination_content, 
@@ -301,7 +301,7 @@ def nagivation_list(count, per_page, cur_page):
 	elif previous_btn:
 		pagination_nav += "<li class='inactive'>Previous</li>"
 	
-	for i in range(start_loop, end_loop):
+	for i in range(start_loop, end_loop + 1):
 		if cur_page == i:
 			pagination_nav += "<li p='" + str(i) + "' class = 'selected'>" + str(i) + "</li>"
 		else:
