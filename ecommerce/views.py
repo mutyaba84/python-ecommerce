@@ -34,12 +34,12 @@ def products(request):
 		# If search keyword is not empty, we include a query for searching 
 		# the "content" or "name" fields in the database for any matched strings.
 		if search:		 
-			all_posts = Product.objects.filter(Q(content__contains = search) | Q(name__contains = search)).order_by(sort + name)[start:per_page]
-			count = Product.objects.filter(Q(content__contains = search) | Q(name__contains = search)).count()
+			all_posts = Product.objects.filter(Q(content__contains = search) | Q(name__contains = search)).exclude(status = 0).order_by(sort + name)[start:per_page]
+			count = Product.objects.filter(Q(content__contains = search) | Q(name__contains = search)).exclude(status = 0).count()
 			
 		else:
-			all_posts = Product.objects.order_by(sort + name)[start:cur_page * max]
-			count = Product.objects.count()
+			all_posts = Product.objects.exclude(status = 0).order_by(sort + name)[start:cur_page * max]
+			count = Product.objects.exclude(status = 0).count()
 		
 		if all_posts:
 			for post in all_posts:
