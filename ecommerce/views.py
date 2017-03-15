@@ -65,11 +65,11 @@ def products(request):
 								</div>
 							</div> 
 							<div class='panel-footer'>
-								<a href='#' class='btn btn-primary btn-block'>View Item</a>
+								<a href='%s' class='btn btn-primary btn-block'>View Item</a>
 							</div>
 						</div>
 					</div>
-				''' %(post.name, '/ecommerce/user/product/update/' + str(post.id), post.featured_image, '100%', post.price, post.quantity)
+				''' %(post.name, '/ecommerce/product/' + str(post.id), post.featured_image, '100%', post.price, post.quantity, '/ecommerce/product/' + str(post.id))
 		else:
 			pagination_content += "<p class='bg-danger p-d'>No results</p>"
 		
