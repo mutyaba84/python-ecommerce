@@ -66,7 +66,7 @@ def products(request):
 					</div>
 				''' %(post.name, '/ecommerce/user/product/update/' + str(post.id), post.featured_image, '100%', post.price, post.quantity)
 		else:
-			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
+			pagination_content += "<p class='bg-danger p-d'>No results</p>"
 		
 		return JsonResponse({
 			'content': pagination_content, 
