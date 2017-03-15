@@ -4,7 +4,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.db.models import Q
-from .models import Member, Product
+from django.core.files.storage import FileSystemStorage
+from .models import Member, Product, Image
 from .forms import RegisterForm
 from .helpers import Helpers
 
@@ -249,14 +250,43 @@ def user_product_create(request):
 	
 def user_product_update(request, product_id):
 	product = get_object_or_404(Product, pk=product_id) # Query object of given product id
-	err_succ = {'status': 0, 'message': 'An unknown error occured'}
+	err_succ = {'status': 0, 'message': 'An unknown error occured', 'images': []}
 		
 	# Redirect if not logged-in
 	if request.user.is_authenticated() == False:
 		return HttpResponseRedirect('/ecommerce/user/login')
 	
 	if request.method == 'POST':
+		if product.author != request.user.id:
+			err_succ['message'] = 'You are not the author of this product.'
+		else:
+			product.name = request.POST['name']
+			product.content = request.POST['content']
+			product.excerpt = request.POST['excerpt']
+			product.price = request.POST['price']
+			product.status = request.POST['status']
+			product.quantity = request.POST['quantity']
+			product.save()
+			
+			if request.FILES.getlist('images'):	
+				
+				for post_file in request.FILES.getlist('images'):
 					
+					fs = FileSystemStorage()
+					filename = fs.save(post_file.name, post_file)
+					
+					uploaded_file_url = fs.url(filename)
+					err_succ['images'].append(uploaded_file_url)
+					
+					image = Image.objects.create(
+						product = product,
+						image = uploaded_file_url
+					)
+					image.save()
+					
+			err_succ['status'] = 1
+			err_succ['message'] = 'Product successfully updated'
+				
 		return JsonResponse(err_succ)
 	else:	
 		return render(request, 'ecommerce/product/update.html', {'product': product}) # Include product object when rendering the view.

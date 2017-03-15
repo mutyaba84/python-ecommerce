@@ -10,9 +10,8 @@
 			</div>
 			<div class="panel-body wave-box-wrapper">
 				<div class="wave-box"></div>
-				<form method="post" action="{% url 'ecommerce:user_product_update' product.id %}" class="update-product">
+				<form action="{% url 'ecommerce:user_product_update' product.id %}" method="post" enctype="multipart/form-data" class="update-product" >
 					{% csrf_token %}
-					<input type="hidden" name="item_id" value="">
 					<div class="col-md-8">
 						<div class="form-group">
 							<label>Name</label>
@@ -28,7 +27,7 @@
 						</div>
 						<div class="form-group ml-t">
 							<label>Upload Images</label>
-							<input type = "file" name = "images[]" accept = "image/*" class = "form-control image-input" multiple />
+							<input type = "file" name = "images" accept = "image/*" class = "form-control image-input" multiple />
 							<hr />
 							
 							<div class = "clearfix m-t images-section">
