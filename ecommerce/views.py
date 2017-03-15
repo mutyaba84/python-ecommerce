@@ -11,6 +11,11 @@ from .helpers import Helpers
 def index(request):
 	return render(request, 'ecommerce/index.html')
 
+def single_product(request, product_id):
+	product = get_object_or_404(Product, pk=product_id)
+	
+	return render(request, 'ecommerce/product/single.html', {'product': product})
+	
 def products(request):
 	if request.method == 'POST':
 		pagination_content = ""

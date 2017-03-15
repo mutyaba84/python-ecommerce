@@ -6,6 +6,7 @@ app_name = 'ecommerce' # This will be like this: {% url 'ecommerce:detail' item.
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
 	url(r'^products/$', views.products, name='products'),
+	url(r'^product/(?P<product_id>[0-9]+)/$', views.single_product, name='single_product'),
 	url(r'^about/$', views.about, name='about'),
 	url(r'^contact/$', views.contact, name='contact'),
 	

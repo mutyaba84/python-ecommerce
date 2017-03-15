@@ -1,0 +1,73 @@
+{% extends "ecommerce/base.html" %}
+
+{% block content %}		
+	<div class="container products-view">
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					{{ product.name }}
+				</div>
+				<div class="panel-body">
+					<input type = "hidden" class = "item-images-json" value = 'product_images' />
+					<div class = "imageviewer">
+						<div class = "image-container"></div>
+						<span class = "glyphicon glyphicon-chevron-left prev"></span>
+						<span class = "glyphicon glyphicon-chevron-right next"></span>
+						
+						<div class = "footer-info">
+							<span class = "current"></span>/<span class="total"></span>
+						</div>
+					</div>
+				
+					<hr />
+					<h3>Product Description</h3>
+					{{ product.content|safe }}
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Product Details
+				</div>
+				<div class="panel-body">
+					<h2 class="text-danger m-0 ml-b">${{ product.price }} <small>only</small></h2>
+					
+					<div class="clearfix">
+						<div class="col-md-6">
+							<span class="sr-only">Four out of Five Stars</span>
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+							<span class="label label-success">7</span>
+						</div>
+						<div class="col-md-6">
+							<a href="#_" class="monospaced"><span class="glyphicon glyphicon-pencil"></span> Write a Review</a>
+						</div>
+					</div>
+					
+					<hr />
+					
+					<p><strong>Date Posted</strong>: {{ product.date }}</p>
+					<p><strong>On Stock</strong>: {{ product.quantity }}</p>
+					
+					<hr />
+					
+					<a href="#_" class="btn btn-success btn-block"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a>
+					<a href="#_" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-star"></span> Add to Wishlist</a>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Reviews
+				</div>
+				<div class="panel-body">
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
