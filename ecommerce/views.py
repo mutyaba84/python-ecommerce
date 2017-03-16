@@ -277,7 +277,7 @@ def user_product_update(request, product_id):
 			if request.FILES.getlist('images'):	
 				# Define the location where we will be uploading our file(s)
 				# We'll use the format ecommerce/media/products/PRODUCT_ID to group images by product.
-				product_location = 'ecommerce/media/products/' + str(product.id)
+				product_location = 'media/products/' + str(product.id)
 				
 				# Loop through each posted image file
 				for post_file in request.FILES.getlist('images'):
@@ -286,7 +286,7 @@ def user_product_update(request, product_id):
 					# Save the file(s) to the specified location
 					filename = fs.save(post_file.name, post_file)
 					# Build the URL location of our image. 
-					uploaded_file_url = product_location + '/' + filename
+					uploaded_file_url = 'ecommerce/' + product_location + '/' + filename
 					# Append file to images array so we can return it to the client side for rendering.
 					err_succ['images'].append(uploaded_file_url)
 					# Save the image to our database.
