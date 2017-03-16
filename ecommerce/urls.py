@@ -1,4 +1,6 @@
 from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -19,4 +21,4 @@ urlpatterns = [
 		url(r'^product/update/(?P<product_id>[0-9]+)/$', views.user_product_update, name='user_product_update'),
 		url(r'^logout/$', views.logout),
     ])),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
