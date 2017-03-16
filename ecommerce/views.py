@@ -317,7 +317,7 @@ def set_featured_image(request):
 	if request.method == 'POST':
 		return JsonResponse(err_succ)
 
-def delete_image(request):
+def unset_image(request):
 	# Query object of given product id
 	product = get_object_or_404(Product, pk=request.product_id)
 	# Define default values
