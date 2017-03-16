@@ -307,11 +307,11 @@ def user_product_update(request, product_id):
 
 def set_featured_image(request):
 	# Query object of given product id
-	product = get_object_or_404(Product, pk=request.product_id)
+	product = get_object_or_404(Product, pk=request.POST['product_id'])
 	# Define default values
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
-	if request.user.is_authenticated() == False:
+	if request.user.is_authenticated() == False or product.author != request.user.id:
 		return JsonResponse(err_succ)
 	
 	if request.method == 'POST':
@@ -319,11 +319,23 @@ def set_featured_image(request):
 
 def unset_image(request):
 	# Query object of given product id
-	product = get_object_or_404(Product, pk=request.product_id)
+	product = get_object_or_404(Product, pk=request.POST['product_id'])
 	# Define default values
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
-	if request.user.is_authenticated() == False:
+	if request.user.is_authenticated() == False or product.author != request.user.id:
+		return JsonResponse(err_succ)
+	
+	if request.method == 'POST':
+		return JsonResponse(err_succ)
+		
+def unset_prodouct(request):
+	# Query object of given product id
+	product = get_object_or_404(Product, pk=request.POST['product_id'])
+	# Define default values
+	err_succ = {'status': 0, 'message': 'An unknown error occured'}
+	
+	if request.user.is_authenticated() == False or product.author != request.user.id:
 		return JsonResponse(err_succ)
 	
 	if request.method == 'POST':
