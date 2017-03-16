@@ -31,30 +31,25 @@
 							<hr />
 							
 							<div class = "clearfix m-t images-section">
-								<!-- 
-								<?php if( $item->images ): ?>
-									<?php $image_count = 1; ?>
-									<?php foreach( $item->images as $image ): ?>
+								{% if product.image_set.all %}
+									{% for data in product.image_set.all %}
 										<div class = "col-sm-3">
-											<span class="unset-image glyphicon glyphicon-remove text-danger lead m-0 c-p" id="unset-<?php echo $image; ?>" title="Delete image"></span>
-											<?php if( $item->featured_image == $image ): ?>
-												<span class="set-featured-image glyphicon glyphicon-star lead m-0 c-p" title="Set as featured image" id="featured-<?php echo $image; ?>" style="color: #E4C317"></span>
-											<?php else: ?>
-												<span class="set-featured-image glyphicon glyphicon-star-empty lead m-0 c-p" title="Set as featured image" id="featured-<?php echo $image; ?>"></span>
-											<?php endif; ?>
-											<img src = "img/uploads/<?php echo $image; ?>" class = "img-thumbnail img-responsive" />
+											<span class="unset-image glyphicon glyphicon-remove text-danger lead m-0 c-p" id="unset-{{ data.image }}" title="Delete image"></span>
+											{% if product.featured_image == data.image %}
+												<span class="set-featured-image glyphicon glyphicon-star lead m-0 c-p" title="Set as featured image" id="featured-{{ data.image }}" style="color: #E4C317"></span>
+											{% else %}
+												<span class="set-featured-image glyphicon glyphicon-star-empty lead m-0 c-p" title="Set as featured image" id="featured-{{ data.image }}"></span>
+											{% endif %}
+											<img src = "{% data.image %}" class = "img-thumbnail img-responsive" />
 										</div>
 										
-										<?php if( $image_count%4 == 0 ): ?>
+										{% if forloop.counter|divisibleby:4 == 0 %}
 											<div class = "clearfix"></div>
-										<?php endif; ?>
-										
-										<?php $image_count++; ?>
-									<?php endforeach; ?>
-								<?php else: ?>
+										{% endif %}
+									{% endfor %}
+								{% else %}
 									<p class = "alert alert-danger no-item-images">No images found</p>
-								<?php endif; ?>
-								-->
+								{% endif %}
 							</div>
 						</div>
 					</div>
