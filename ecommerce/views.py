@@ -249,17 +249,22 @@ def user_product_create(request):
 	
 	
 def user_product_update(request, product_id):
-	product = get_object_or_404(Product, pk=product_id) # Query object of given product id
+	# Query object of given product id
+	product = get_object_or_404(Product, pk=product_id)
+	# Define default values
 	err_succ = {'status': 0, 'message': 'An unknown error occured', 'images': []}
 		
 	# Redirect if not logged-in
 	if request.user.is_authenticated() == False:
 		return HttpResponseRedirect('/ecommerce/user/login')
 	
+	# Check if we received a post request
 	if request.method == 'POST':
+		# Check if current user owns the product
 		if product.author != request.user.id:
 			err_succ['message'] = 'You are not the author of this product.'
 		else:
+			# Update the fields
 			product.name = request.POST['name']
 			product.content = request.POST['content']
 			product.excerpt = request.POST['excerpt']
@@ -268,22 +273,30 @@ def user_product_update(request, product_id):
 			product.quantity = request.POST['quantity']
 			product.save()
 			
+			# Check if there are posted images.
 			if request.FILES.getlist('images'):	
+				# Define the location where we will be uploading our file(s)
+				# We'll use the format ecommerce/media/products/PRODUCT_ID to group images by product.
+				product_location = 'ecommerce/media/products/' + str(product.id)
 				
+				# Loop through each posted image file
 				for post_file in request.FILES.getlist('images'):
-					
-					fs = FileSystemStorage()
+					# Create an instance of FileSystemStorage class using a custom upload location as indicated in the parameter.
+					fs = FileSystemStorage(location=product_location)
+					# Save the file(s) to the specified location
 					filename = fs.save(post_file.name, post_file)
-					
-					uploaded_file_url = fs.url(filename)
+					# Build the URL location of our image. 
+					uploaded_file_url = product_location + '/' + filename
+					# Append file to images array so we can return it to the client side for rendering.
 					err_succ['images'].append(uploaded_file_url)
-					
+					# Save the image to our database.
 					image = Image.objects.create(
 						product = product,
 						image = uploaded_file_url
 					)
 					image.save()
-					
+			
+			# Return a success message.
 			err_succ['status'] = 1
 			err_succ['message'] = 'Product successfully updated'
 				
