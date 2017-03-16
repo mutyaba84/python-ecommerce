@@ -21,6 +21,7 @@ urlpatterns = [
 		url(r'^product/update/(?P<product_id>[0-9]+)/$', views.user_product_update, name='user_product_update'),
 		url(r'^product/update/set-featured-image/$', views.set_featured_image),
 		url(r'^product/update/unset-image/$', views.unset_image),
+		url(r'^product/unset-product/$', views.unset_product),
 		url(r'^logout/$', views.logout),
     ])),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
