@@ -40,7 +40,7 @@
 											{% else %}
 												<span class="set-featured-image glyphicon glyphicon-star-empty lead m-0 c-p" title="Set as featured image" id="featured-{{ data.image }}"></span>
 											{% endif %}
-											<img src = "{{ data.image }}" class = "img-thumbnail img-responsive" />
+											<img src = "/{{ data.image }}" class = "img-thumbnail img-responsive" />
 										</div>
 										
 										{% if forloop.counter|divisibleby:4 == 0 %}
