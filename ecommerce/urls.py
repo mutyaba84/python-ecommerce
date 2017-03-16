@@ -19,6 +19,8 @@ urlpatterns = [
 		url(r'^products/$', views.user_products, name='user_products'),
 		url(r'^product/create/$', views.user_product_create, name='user_product_create'),
 		url(r'^product/update/(?P<product_id>[0-9]+)/$', views.user_product_update, name='user_product_update'),
+		url(r'^product/update/set-featured-image/$', views.set_featured_image),
+		url(r'^product/update/delete-image/$', views.delete_image),
 		url(r'^logout/$', views.logout),
     ])),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

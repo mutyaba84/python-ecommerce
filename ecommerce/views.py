@@ -304,6 +304,31 @@ def user_product_update(request, product_id):
 	else:	
 		return render(request, 'ecommerce/product/update.html', {'product': product}) # Include product object when rendering the view.
 
+
+def set_featured_image(request):
+	# Query object of given product id
+	product = get_object_or_404(Product, pk=request.product_id)
+	# Define default values
+	err_succ = {'status': 0, 'message': 'An unknown error occured'}
+	
+	if request.user.is_authenticated() == False:
+		return JsonResponse(err_succ)
+	
+	if request.method == 'POST':
+		return JsonResponse(err_succ)
+
+def delete_image(request):
+	# Query object of given product id
+	product = get_object_or_404(Product, pk=request.product_id)
+	# Define default values
+	err_succ = {'status': 0, 'message': 'An unknown error occured'}
+	
+	if request.user.is_authenticated() == False:
+		return JsonResponse(err_succ)
+	
+	if request.method == 'POST':
+		return JsonResponse(err_succ)
+
 def user_register(request):
 	# Redirect if already logged-in
 	if request.user.is_authenticated():
