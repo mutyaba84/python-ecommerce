@@ -338,11 +338,12 @@ var app = {
 				var parent_element = $(this).parent();
 				
 				$.ajax({
-					url: 'inc/ajax/products/image.php',
+					url: '/ecommerce/user/product/update/unset-image/',
 					type: 'POST',
 					data: {
 						'action': 'unset-image',
-						'item_id': $('.item-edit').attr('id').split('-')[1],
+						'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+						'product_id': $('.item-edit').attr('id').split('-')[1],
 						'image': this.id.split('-')[1]
 					},
 					success: function (response) {
@@ -375,11 +376,12 @@ var app = {
 					
 				} else {
 					$.ajax({
-						url: 'inc/ajax/products/image.php',
+						url: '/ecommerce/user/product/update/set-featured-image/',
 						type: 'POST',
 						data: {
 							'action': 'set-featured-image',
-							'item_id': $('.item-edit').attr('id').split('-')[1],
+							'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+							'product_id': $('.item-edit').attr('id').split('-')[1],
 							'image': image_featured_id
 						},
 						datatype: 'JSON',
