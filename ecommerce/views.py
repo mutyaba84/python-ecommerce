@@ -329,7 +329,7 @@ def unset_image(request):
 	if request.method == 'POST':
 		return JsonResponse(err_succ)
 		
-def unset_prodouct(request):
+def unset_product(request):
 	# Query object of given product id
 	product = get_object_or_404(Product, pk=request.POST['product_id'])
 	# Define default values
