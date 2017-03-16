@@ -307,11 +307,12 @@ var app = {
 				
 				var item = $(this);
 				var data = { 
-					item_id: item.attr('item_id')
+					'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+					'product_id': item.attr('item_id')
 				}
 				
 				$.ajax({
-					url: 'inc/ajax/products/delete.php',
+					url: '/ecommerce/user/product/unset-product/',
 					type: 'POST',
 					data: data,
 					success: function (response) {
