@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth import authenticate, login, logout as django_logout # Use alias like "django_logout" so that django doesnt get confused on which function to use.
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
@@ -5,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 from .models import Member, Product, Image
 from .forms import RegisterForm
 from .helpers import Helpers
@@ -286,7 +289,7 @@ def user_product_update(request, product_id):
 					# Save the file(s) to the specified location
 					filename = fs.save(post_file.name, post_file)
 					# Build the URL location of our image. 
-					uploaded_file_url = 'ecommerce/' + product_location + '/' + filename
+					uploaded_file_url = product_location + '/' + filename
 					# Append file to images array so we can return it to the client side for rendering.
 					err_succ['images'].append(uploaded_file_url)
 					# Save the image to our database.
@@ -326,6 +329,7 @@ def set_featured_image(request):
 def unset_image(request):
 	# Query object of given product id
 	product = get_object_or_404(Product, pk=request.POST['product_id'])
+	image = get_object_or_404(Image, pk=request.POST['image_id'])
 	# Define default values
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
@@ -333,6 +337,12 @@ def unset_image(request):
 		return JsonResponse(err_succ)
 	
 	if request.method == 'POST':
+		os.remove(settings.BASE_DIR + '/' + str(image.image) )
+		image.delete()
+		
+		err_succ['status'] = 1
+		err_succ['message'] = 'Image successfully deleted'
+		
 		return JsonResponse(err_succ)
 		
 def unset_product(request):
@@ -345,6 +355,11 @@ def unset_product(request):
 		return JsonResponse(err_succ)
 	
 	if request.method == 'POST':
+		product.delete()
+		
+		err_succ['status'] = 1
+		err_succ['message'] = 'Product successfully deleted'
+		
 		return JsonResponse(err_succ)
 
 def user_register(request):
