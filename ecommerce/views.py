@@ -17,8 +17,14 @@ def index(request):
 
 def single_product(request, product_id):
 	product = get_object_or_404(Product, pk=product_id)
+	product_images = product.image_set.all()
+	images = []
 	
-	return render(request, 'ecommerce/product/single.html', {'product': product})
+	if product_images:
+		for data in product_images:
+			images.append({"small": '/ecommerce/' + str(data.image), 'big': '/ecommerce/' + str(data.image)})
+	
+	return render(request, 'ecommerce/product/single.html', {'product': product, 'images': str(images).replace("'", '"')})
 	
 def products(request):
 	if request.method == 'POST':
