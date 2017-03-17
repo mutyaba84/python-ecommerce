@@ -34,13 +34,13 @@
 								{% if product.image_set.all %}
 									{% for data in product.image_set.all %}
 										<div class = "col-sm-3">
-											<span class="unset-image glyphicon glyphicon-remove text-danger lead m-0 c-p" id="unset-{{ data.image }}" title="Delete image"></span>
+											<span class="unset-image glyphicon glyphicon-remove text-danger lead m-0 c-p" id="unset-{{ data.id }}" title="Delete image"></span>
 											{% if product.featured_image == data.image %}
 												<span class="set-featured-image glyphicon glyphicon-star lead m-0 c-p" title="Set as featured image" id="featured-{{ data.image }}" style="color: #E4C317"></span>
 											{% else %}
 												<span class="set-featured-image glyphicon glyphicon-star-empty lead m-0 c-p" title="Set as featured image" id="featured-{{ data.image }}"></span>
 											{% endif %}
-											<img src = "/{{ data.image }}" class = "img-thumbnail img-responsive" />
+											<img src = "/ecommerce/{{ data.image }}" class = "img-thumbnail img-responsive" />
 										</div>
 										
 										{% if forloop.counter|divisibleby:4 == 1 %}
