@@ -314,13 +314,17 @@ def set_featured_image(request):
 	# Define default values
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
+	# Check if logged in and owns the product
 	if request.user.is_authenticated() == False or product.author != request.user.id:
 		return JsonResponse(err_succ)
 	
+	# Check if we received a post
 	if request.method == 'POST':
+		# Set image path as the featured image for this product
 		product.featured_image = request.POST['image']
 		product.save()
 		
+		# Return a success message.
 		err_succ['status'] = 1
 		err_succ['message'] = 'Image successfully set as featured'
 		
@@ -333,13 +337,18 @@ def unset_image(request):
 	# Define default values
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
+	# Check if logged in and owns the product
 	if request.user.is_authenticated() == False or product.author != request.user.id:
 		return JsonResponse(err_succ)
 	
+	# Check if we received a post
 	if request.method == 'POST':
+		# Delete the image from storage
 		os.remove(settings.BASE_DIR + '/' + str(image.image) )
+		# Delete the image from database
 		image.delete()
 		
+		# Return a success message.
 		err_succ['status'] = 1
 		err_succ['message'] = 'Image successfully deleted'
 		
@@ -351,16 +360,23 @@ def unset_product(request):
 	# Define default values
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
+	# Check if logged in and owns the product
 	if request.user.is_authenticated() == False or product.author != request.user.id:
 		return JsonResponse(err_succ)
 	
+	# Check if we received a post
 	if request.method == 'POST':
+		# Delete all the image under this product
 		for image in product.image_set.all():
+			# Delete the image from storage
 			os.remove(settings.BASE_DIR + '/' + str(image.image) )
+			# Delete the image from database
 			image.delete()
 		
+		# Delete the product from database
 		product.delete()
 		
+		# Return a success message.
 		err_succ['status'] = 1
 		err_succ['message'] = 'Product successfully deleted'
 		
