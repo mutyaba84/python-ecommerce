@@ -53,7 +53,7 @@ def products(request):
 							<div class='panel-heading'>%s</div>
 							<div class='panel-body p-0 p-b'>
 								<a href='%s'>
-									<img src='/uploads/%s' width='%s' class='img-responsive'>
+									<img src='%s' width='%s' class='img-responsive'>
 								</a>
 								<div class='list-group m-0'>
 									<div class='list-group-item b-0 b-t'>
@@ -73,7 +73,7 @@ def products(request):
 							</div>
 						</div>
 					</div>
-				''' %(post.name, '/ecommerce/product/' + str(post.id), post.featured_image, '100%', post.price, post.quantity, '/ecommerce/product/' + str(post.id))
+				''' %(post.name, '/ecommerce/product/' + str(post.id), '/ecommerce/' + post.featured_image, '100%', post.price, post.quantity, '/ecommerce/product/' + str(post.id))
 		else:
 			pagination_content += "<p class='bg-danger p-d'>No results</p>"
 		
@@ -198,7 +198,7 @@ def user_products(request):
 			for post in all_posts:
 				pagination_content += '''
 					<tr>
-						<td><img src='/uploads/%s' width='100' /></td>
+						<td><img src='%s' width='100' /></td>
 						<td>%s</td>
 						<td>$%s</td>
 						<td>%s</td>
@@ -213,7 +213,7 @@ def user_products(request):
 							</a>
 						</td>
 					</tr>
-				''' %(post.featured_image, post.name, post.price, post.status, post.date, post.quantity, '/ecommerce/user/product/update/' + str(post.id),  post.id)
+				''' %('/ecommerce/' + post.featured_image, post.name, post.price, post.status, post.date, post.quantity, '/ecommerce/user/product/update/' + str(post.id),  post.id)
 		else:
 			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
 		
