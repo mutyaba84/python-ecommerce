@@ -316,11 +316,11 @@ var app = {
 					type: 'POST',
 					data: data,
 					success: function (response) {
-						if(response == 0){
-							Lobibox.notify('error', {msg: 'Delete failed, please try again', size: 'mini', sound: false});
-						} else if(response == 1){
+						if(response.status == 0){
+							Lobibox.notify('error', {msg: response.message, size: 'mini', sound: false});
+						} else if(response.status == 1){
 							item.parents('tr').css('background', '#add9ff').fadeOut('fast');
-							Lobibox.notify('success', {msg: 'Deleted Successfully', size: 'mini', sound: false});
+							Lobibox.notify('success', {msg: response.message, size: 'mini', sound: false});
 						}
 					}
 				});
