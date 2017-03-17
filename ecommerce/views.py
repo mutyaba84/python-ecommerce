@@ -328,7 +328,7 @@ def set_featured_image(request):
 		err_succ['status'] = 1
 		err_succ['message'] = 'Image successfully set as featured'
 		
-		return JsonResponse(err_succ)
+	return JsonResponse(err_succ)
 
 def unset_image(request):
 	# Query object of given product id
@@ -352,7 +352,7 @@ def unset_image(request):
 		err_succ['status'] = 1
 		err_succ['message'] = 'Image successfully deleted'
 		
-		return JsonResponse(err_succ)
+	return JsonResponse(err_succ)
 		
 def unset_product(request):
 	# Query object of given product id
@@ -380,7 +380,7 @@ def unset_product(request):
 		err_succ['status'] = 1
 		err_succ['message'] = 'Product successfully deleted'
 		
-		return JsonResponse(err_succ)
+	return JsonResponse(err_succ)
 
 def user_register(request):
 	# Redirect if already logged-in
