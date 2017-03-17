@@ -315,6 +315,12 @@ def set_featured_image(request):
 		return JsonResponse(err_succ)
 	
 	if request.method == 'POST':
+		product.featured_image = request.POST['image']
+		product.save()
+		
+		err_succ['status'] = 1
+		err_succ['message'] = 'Image successfully set as featured'
+		
 		return JsonResponse(err_succ)
 
 def unset_image(request):
