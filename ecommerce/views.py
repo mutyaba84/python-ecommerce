@@ -355,6 +355,10 @@ def unset_product(request):
 		return JsonResponse(err_succ)
 	
 	if request.method == 'POST':
+		for image in product.image_set.all():
+			os.remove(settings.BASE_DIR + '/' + str(image.image) )
+			image.delete()
+		
 		product.delete()
 		
 		err_succ['status'] = 1
