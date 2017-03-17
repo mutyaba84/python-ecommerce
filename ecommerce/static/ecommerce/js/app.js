@@ -253,7 +253,7 @@ var app = {
 								'<div class = "col-sm-3">' + 
 									'<span class="unset-image glyphicon glyphicon-remove text-danger lead m-0 c-p" id="unset-' + image + '" title="Delete image"></span>' + 
 									'<span class="set-featured-image glyphicon glyphicon-star-empty text-warning lead m-0 c-p" id="featured-' + image + '" title="Set as featured image"></span>' + 
-									'<img src = "/' + image + '" class = "img-thumbnail img-responsive" />' + 
+									'<img src = "/ecommerce/' + image + '" class = "img-thumbnail img-responsive" />' + 
 								'</div>'
 							);
 						});
@@ -345,7 +345,7 @@ var app = {
 						'action': 'unset-image',
 						'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
 						'product_id': $('.item-edit').attr('id').split('-')[1],
-						'image': this.id.split('-')[1]
+						'image_id': this.id.split('-')[1]
 					},
 					success: function (response) {
 						if(response.status == '1'){
