@@ -2,10 +2,42 @@
 
 A starter template madule for creating complex e-commerce web applications. Developed using Django v1.10.6 with best practices in mind.
 
-This project is currently in its development phase, it will later be packaged so it can be available for distribution. I will be enumarating the features of this web application soon.
+YouTube Demo: https://www.youtube.com/embed/DexPhKYuMcY
+
+Pages and Features included:
+1. Home
+2. Login
+3. Register
+4. Account
+5. Add Product
+6. Edit Product
+7. Manage Products
+8. Product List
+9. Single Product View
 
 ## How do I get setup?
-Coming soon...
+1. Make sure you have latest python installed in your computer, you can download python from here: 		
+	+ https://www.tutorialspoint.com/django/django_environment.htm
+2. Install django using pip:
+	+ pip install Django==1.10.6
+or get the latest version here: https://www.djangoproject.com/download/
+3. Verify your installation, run the following command:
+	+ python -m django –version
+	
+## Setting up a new project in Django
+1. From your command line, navigate to where you want to save your projects, then create a new project:
+	+ django-admin startproject myproject
+2. Now that your project is created and configured make sure it’s working:
+	+ python manage.py runserver
+	+ Navigate to http://127.0.0.1:8000/ in your browser to view the application.
+		+ By default, the runserver command starts the development server on the internal IP at port 8000.
+		+ if you want to change the port, syntax is:
+			+ python manage.py runserver 8080
+			+ where 8080 is the different port.
+	+ if you want to share your project to other computers connected to the network, start the server like this:
+		+ python manage.py runserver 192.168.2.75:8000
+		+ Where 192.168.2.75 is your computer IP
+	+ You can quit the server with CONTROL-C.
 
 ## Author
 ### Carl Victor C. Fontanos
@@ -15,3 +47,4 @@ Coming soon...
 + Twitter: [twitter.com/carlofontanos](http://twitter.com/carlofontanos)
 + Google+: [plus.google.com/u/0/107219338853998242780/about](https://plus.google.com/u/0/107219338853998242780/about)
 + GitHub: [github.com/carlo-fontanos](https://github.com/carlo-fontanos)
+
