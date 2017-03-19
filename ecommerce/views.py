@@ -204,7 +204,7 @@ def user_products(request):
 			for post in all_posts:
 				pagination_content += '''
 					<tr>
-						<td><img src='%s' width='100' /></td>
+						<td><a href="%s"><img src='%s' width='100' /></a></td>
 						<td>%s</td>
 						<td>$%s</td>
 						<td>%s</td>
@@ -219,7 +219,7 @@ def user_products(request):
 							</a>
 						</td>
 					</tr>
-				''' %('/ecommerce/' + post.featured_image, post.name, post.price, post.status, post.date, post.quantity, '/ecommerce/user/product/update/' + str(post.id),  post.id)
+				''' %('/ecommerce/user/product/update/' + str(post.id), '/ecommerce/' + post.featured_image, post.name, post.price, post.status, post.date, post.quantity, '/ecommerce/user/product/update/' + str(post.id),  post.id)
 		else:
 			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
 		
