@@ -2,7 +2,8 @@
 
 A starter template madule for creating complex e-commerce web applications. Developed using Django v1.10.6 with best practices in mind.
 
-YouTube Demo: https://www.youtube.com/embed/DexPhKYuMcY
+YouTube Demo: 
+[![Python E-commerce by Carlo Fontanos (Demo)](https://img.youtube.com/vi/DexPhKYuMcY/0.jpg)](https://www.youtube.com/watch?v=DexPhKYuMcY)
 
 ## Pages and Features included:
 1. Home
