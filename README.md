@@ -4,7 +4,7 @@ A starter template madule for creating complex e-commerce web applications. Deve
 
 YouTube Demo: https://www.youtube.com/embed/DexPhKYuMcY
 
-Pages and Features included:
+## Pages and Features included:
 1. Home
 2. Login
 3. Register
