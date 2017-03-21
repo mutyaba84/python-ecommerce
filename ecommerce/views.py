@@ -435,9 +435,9 @@ def user_register(request):
 				
 				# return account page URL where we will be redirecting the user.
 				err_succ['status'] = 1
-				err_succ['message'] = 'Sucessfully registered, redirecting..'
+				err_succ['message'] = 'Sucessfully registered, redirecting to your account..'
 				
-			return JsonResponse(err_succ)
+		return JsonResponse(err_succ)
 
    # No post data availabe, let's just show the page.
 	else:
