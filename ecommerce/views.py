@@ -13,7 +13,7 @@ from .forms import RegisterForm
 from .helpers import Helpers
 
 def index(request):
-	return render(request, 'ecommerce/index.html')
+	return render(request, Helpers.get_url('index.html'))
 
 def single_product(request, product_id):
 	product = get_object_or_404(Product, pk=product_id)
@@ -22,9 +22,9 @@ def single_product(request, product_id):
 	
 	if product_images:
 		for data in product_images:
-			images.append({"small": '/ecommerce/' + str(data.image), 'big': '/ecommerce/' + str(data.image)})
+			images.append({"small": Helpers.get_path(str(data.image)), 'big': Helpers.get_path(str(data.image))})
 	
-	return render(request, 'ecommerce/product/single.html', {'product': product, 'images': str(images).replace("'", '"')})
+	return render(request, Helpers.get_url('product/single.html'), {'product': product, 'images': str(images).replace("'", '"')})
 	
 def products(request):
 	if request.method == 'POST':
@@ -79,7 +79,7 @@ def products(request):
 							</div>
 						</div>
 					</div>
-				''' %(post.name, '/ecommerce/product/' + str(post.id), '/ecommerce/' + post.featured_image, '100%', post.price, post.quantity, '/ecommerce/product/' + str(post.id))
+				''' %(post.name, Helpers.get_path('product/' + str(post.id)), Helpers.get_path(post.featured_image), '100%', post.price, post.quantity, Helpers.get_path('product/' + str(post.id)))
 		else:
 			pagination_content += "<p class='bg-danger p-d'>No results</p>"
 		
@@ -88,18 +88,18 @@ def products(request):
 			'navigation': Helpers.nagivation_list(count, per_page, cur_page)
 		})
 	else:	
-		return render(request, 'ecommerce/product/index.html')
+		return render(request, Helpers.get_url('product/index.html'))
 	
 def about(request):
-	return render(request, 'ecommerce/about.html')
+	return render(request, Helpers.get_url('about.html'))
 	
 def contact(request):
-	return render(request, 'ecommerce/contact.html')
+	return render(request, Helpers.get_url('contact.html'))
 
 def user_login(request):
 	# Redirect if already logged-in
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('/ecommerce/user/account')
+		return HttpResponseRedirect(Helpers.get_path('user/account'))
 	
 	if request.method == 'POST':
 		# Process the request if posted data are available
@@ -111,20 +111,20 @@ def user_login(request):
 			# Success, now let's login the user. 
 			login(request, user)
 			# Then redirect to the accounts page.
-			return HttpResponseRedirect('/ecommerce/user/account')
+			return HttpResponseRedirect(Helpers.get_path('user/account'))
 		else:
 			# Incorrect credentials, let's throw an error to the screen.
-			return render(request, 'ecommerce/user/login.html', {'error_message': 'Incorrect username and / or password.'})
+			return render(request, Helpers.get_url('user/login.html'), {'error_message': 'Incorrect username and / or password.'})
 	else:
 		# No post data availabe, let's just show the page to the user.
-		return render(request, 'ecommerce/user/login.html')
+		return render(request, Helpers.get_url('user/login.html'))
  
 def user_account(request):
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
 	# Redirect if not logged-in
 	if request.user.is_authenticated() == False:
-		return HttpResponseRedirect('/ecommerce/user/login') 
+		return HttpResponseRedirect(Helpers.get_path('user/login')) 
 	
 	if request.method == 'POST':
 		# Query data of currently logged-in user.
@@ -169,12 +169,12 @@ def user_account(request):
 			
 		return JsonResponse(err_succ)
 	else:	
-		return render(request, 'ecommerce/user/account.html')
+		return render(request, Helpers.get_url('user/account.html'))
 
 def user_products(request):
 	# Redirect if not logged-in
 	if request.user.is_authenticated() == False:
-		return HttpResponseRedirect('/ecommerce/user/login')
+		return HttpResponseRedirect(Helpers.get_path('user/login'))
 	
 	if request.method == 'POST':
 		pagination_content = ""
@@ -219,7 +219,7 @@ def user_products(request):
 							</a>
 						</td>
 					</tr>
-				''' %('/ecommerce/user/product/update/' + str(post.id), '/ecommerce/' + post.featured_image, post.name, post.price, post.status, post.date, post.quantity, '/ecommerce/user/product/update/' + str(post.id),  post.id)
+				''' %(Helpers.get_path('user/product/update/' + str(post.id)), Helpers.get_path(post.featured_image), post.name, post.price, post.status, post.date, post.quantity, Helpers.get_path('user/product/update/' + str(post.id)),  post.id)
 		else:
 			pagination_content += "<tr><td colspan='7' class='bg-danger p-d'>No results</td></tr>"
 		
@@ -228,14 +228,14 @@ def user_products(request):
 			'navigation': Helpers.nagivation_list(count, per_page, cur_page)
 		})
 	else:	
-		return render(request, 'ecommerce/product/user.html')
+		return render(request, Helpers.get_url('product/user.html'))
 	
 def user_product_create(request):
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
 	# Redirect if not logged-in
 	if request.user.is_authenticated() == False:
-		return HttpResponseRedirect('/ecommerce/user/login')
+		return HttpResponseRedirect(Helpers.get_path('user/login'))
 	
 	if request.method == 'POST':
 		product = Product.objects.create(
@@ -254,7 +254,7 @@ def user_product_create(request):
 		
 		return JsonResponse(err_succ)
 	else:	
-		return render(request, 'ecommerce/product/create.html')
+		return render(request, Helpers.get_url('product/create.html'))
 	
 	
 def user_product_update(request, product_id):
@@ -265,7 +265,7 @@ def user_product_update(request, product_id):
 		
 	# Redirect if not logged-in
 	if request.user.is_authenticated() == False:
-		return HttpResponseRedirect('/ecommerce/user/login')
+		return HttpResponseRedirect(Helpers.get_path('user/login'))
 	
 	# Check if we received a post request
 	if request.method == 'POST':
@@ -311,7 +311,7 @@ def user_product_update(request, product_id):
 				
 		return JsonResponse(err_succ)
 	else:	
-		return render(request, 'ecommerce/product/update.html', {'product': product}) # Include product object when rendering the view.
+		return render(request, Helpers.get_url('product/update.html'), {'product': product}) # Include product object when rendering the view.
 
 
 def set_featured_image(request):
@@ -391,10 +391,10 @@ def unset_product(request):
 def user_register(request):
 	# Redirect if already logged-in
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('/ecommerce/user/account')
+		return HttpResponseRedirect(Helpers.get_path('user/account'))
 	
 	# if this is a POST request we need to process the form data
-	template = 'ecommerce/user/register.html'
+	template = Helpers.get_url('user/register.html')
 	
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
@@ -439,7 +439,7 @@ def user_register(request):
 				login(request, user)
 				
 				# redirect to accounts page:
-				return HttpResponseRedirect('/ecommerce/user/account')
+				return HttpResponseRedirect(Helpers.get_path('user/account'))
 
    # No post data availabe, let's just show the page.
 	else:
@@ -451,4 +451,4 @@ def logout(request):
 	# Clear the session cookies to logout the user. 
 	django_logout(request)
 	# Redirect after logout
-	return HttpResponseRedirect('/ecommerce/user/login')
+	return HttpResponseRedirect(Helpers.get_path('user/login'))
