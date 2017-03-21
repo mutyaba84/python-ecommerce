@@ -1,17 +1,14 @@
 {% extends "ecommerce/base.html" %}
 
 {% block content %}
-	<div class="container">
-		<form action="{% url 'ecommerce:user_register' %}" method="post">
+	<div class="container wave-box-wrapper">
+		<div class="wave-box"></div>
+		<form action="{% url 'ecommerce:user_register' %}" method="post" class="create-account">
 			{% csrf_token %}
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-heading">Register</div>
 					<div class="panel-body">
-						{% if error_message %}
-							<p class="bg-danger p-d ml-b">{{ error_message }}</p>
-						{% endif %}
-						
 						<div class="form-group clearfix">
 							<label for="{{ form.username.id_for_label }}" class="col-md-4 control-label text-right">Username<span class="text-red">*</span>:</label>
 							<div class="col-md-6">

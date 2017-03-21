@@ -452,6 +452,7 @@ var app = {
 	User: function() {
 		this.init = function() {
 			this.update_account();
+			this.create_account();
 		}
 		
 		this.update_account = function(){
@@ -475,6 +476,29 @@ var app = {
             });
 		}
 		
+		this.create_account = function(){
+			$('.create-account').ajaxForm({
+				beforeSerialize: function() {
+					update_ckeditor_instances();
+					wave_box('on');
+				},
+				success: function(response, textStatus, xhr, form) {
+					
+					if(response.status == 0){
+						Lobibox.notify('error', {msg: response.message, size: 'mini', sound: false});
+					}
+					
+					if(response.status == 1){
+						Lobibox.notify('success', {msg: response.message, size: 'mini', sound: false});
+						setTimeout(function(){
+							window.location.href = module_path + 'user/account/'
+						}, 3000);
+					}
+					
+					wave_box('off');
+				}
+            });
+		}
 	},
 	
 	/**
