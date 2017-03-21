@@ -1,6 +1,18 @@
 import math
 
+from .apps import EcommerceConfig
+
 class Helpers():
+	
+	def get_path(file):
+		module_name = EcommerceConfig.name
+		
+		return '/' + module_name + '/' + file
+		
+	def get_url(file):
+		module_name = EcommerceConfig.name
+		
+		return module_name + '/' + file
 		
 	def nagivation_list(count, per_page, cur_page):
 		pagination_nav = ""
