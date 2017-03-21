@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from .models import Member, Product, Image
-from .forms import RegisterForm
+from .forms import *
 from .helpers import Helpers
 
 def index(request):
@@ -122,54 +122,68 @@ def user_login(request):
 def user_account(request):
 	err_succ = {'status': 0, 'message': 'An unknown error occured'}
 	
+	# Create instance of the form and populate it with requests
+	form = AccountForm(request.POST)
+	
 	# Redirect if not logged-in
 	if request.user.is_authenticated() == False:
 		return HttpResponseRedirect(Helpers.get_path('user/login')) 
 	
 	if request.method == 'POST':
-		# Query data of currently logged-in user.
-		user = User.objects.get(username=request.user.username)
-		
-		# Check if username exists
-		if User.objects.filter(username=request.POST['username']).exists() and user.username != request.POST['username']:
-			err_succ['message'] = 'Username aleady taken, please enter a different one.'
-		
-		# Check if email exists		
-		elif User.objects.filter(email=request.POST['email']).exists() and user.email != request.POST['email']:
-			err_succ['message'] = 'Email already taken, please enter a different one'
+		if form.is_valid():	
+			# Query data of currently logged-in user.
+			user = User.objects.get(username=request.user.username)
 			
-		elif request.POST['old_password'] and request.POST['password_repeat'] and request.POST['password']:
-			# Check if passwords match
-			if request.POST['password_repeat'] != request.POST['password']:
-				err_succ['message'] = 'New password do not match.'
+			# Check if username exists
+			if User.objects.filter(username=form.cleaned_data['username']).exists() and user.username != form.cleaned_data['username']:
+				err_succ['message'] = 'Username aleady taken, please enter a different one.'
 			
-			# Check if old password is correct
-			elif not user.check_password(request.POST['old_password']):
-				err_succ['message'] = 'Incorrect old password.'
+			# Check if email exists		
+			elif User.objects.filter(email=form.cleaned_data['email']).exists() and user.email != form.cleaned_data['email']:
+				err_succ['message'] = 'Email already taken, please enter a different one'
 				
-		else:
-			user.username = request.POST['username']
-			user.first_name = request.POST['first_name']
-			user.last_name = request.POST['last_name']
-			
-			user.member.phone_number = request.POST['phone_number']
-			user.member.about = request.POST['about_me']
-			
-			# Save new password if passes above validations
-			if request.POST['password']:
-				user.set_password(request.POST['password'])
-			
-			# Save posted fields to their respective tables
-			user.member.save()
-			user.save()
-			
-			# Show success message
-			err_succ['status'] = 1
-			err_succ['message'] = 'Account successfully updated.'
+			elif form.cleaned_data['old_password'] and form.cleaned_data['password_repeat'] and form.cleaned_data['password']:
+				# Check if passwords match
+				if form.cleaned_data['password_repeat'] != form.cleaned_data['password']:
+					err_succ['message'] = 'New password do not match.'
+				
+				# Check if old password is correct
+				elif not user.check_password(form.cleaned_data['old_password']):
+					err_succ['message'] = 'Incorrect old password.'
+					
+			else:
+				user.username = form.cleaned_data['username']
+				user.first_name = form.cleaned_data['first_name']
+				user.last_name = form.cleaned_data['last_name']
+				
+				user.member.phone_number = form.cleaned_data['phone_number']
+				user.member.about = form.cleaned_data['about_me']
+				
+				# Save new password if passes above validations
+				if form.cleaned_data['password']:
+					user.set_password(form.cleaned_data['password'])
+				
+				# Save posted fields to their respective tables
+				user.member.save()
+				user.save()
+				
+				# Show success message
+				err_succ['status'] = 1
+				err_succ['message'] = 'Account successfully updated.'
 			
 		return JsonResponse(err_succ)
-	else:	
-		return render(request, Helpers.get_url('user/account.html'))
+	else:
+		# Let's define intial data that we are going to use to populate our account form.
+		user_data = {
+			'username': request.user.username, 
+			'email': request.user.email, 
+			'first_name': request.user.first_name, 
+			'last_name': request.user.last_name, 
+			'phone_number': request.user.member.phone_number, 
+			'about_me': request.user.member.about 
+		}
+		# Render the account form
+		return render(request, Helpers.get_url('user/account.html'), {'form': AccountForm(initial=user_data)})
 
 def user_products(request):
 	# Redirect if not logged-in
