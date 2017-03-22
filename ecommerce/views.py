@@ -251,24 +251,28 @@ def user_product_create(request):
 	if request.user.is_authenticated() == False:
 		return HttpResponseRedirect(Helpers.get_path('user/login'))
 	
+	# Create instance of the form and populate it with requests
+	form = CreateProductForm(request.POST)
+	
 	if request.method == 'POST':
-		product = Product.objects.create(
-			name = request.POST['name'],
-			content = request.POST['content'],
-			excerpt = request.POST['excerpt'],
-			price = request.POST['price'],
-			status = request.POST['status'],
-			quantity = request.POST['quantity'],
-			author = request.user.id
-		)	
-		product.save()
-		
-		err_succ['status'] = 1
-		err_succ['message'] = product.id
-		
+		if form.is_valid():	
+			product = Product.objects.create(
+				name = form.cleaned_data['name'],
+				content = form.cleaned_data['content'],
+				excerpt = form.cleaned_data['excerpt'],
+				price = form.cleaned_data['price'],
+				status = form.cleaned_data['status'],
+				quantity = form.cleaned_data['quantity'],
+				author = request.user.id
+			)	
+			product.save()
+			
+			err_succ['status'] = 1
+			err_succ['message'] = product.id
+			
 		return JsonResponse(err_succ)
 	else:	
-		return render(request, Helpers.get_url('product/create.html'))
+		return render(request, Helpers.get_url('product/create.html'), {'form': CreateProductForm()})
 	
 	
 def user_product_update(request, product_id):
