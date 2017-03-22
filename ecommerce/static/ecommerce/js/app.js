@@ -117,7 +117,7 @@ var app = {
 				};
 				
 				$.ajax({
-					url: '/ecommerce/user/products/',
+					url: module_path + 'user/products/',
 					type: 'POST',
 					data: data,
 					success: function (response) {
@@ -200,7 +200,7 @@ var app = {
 				};
 				
 				$.ajax({
-					url: '/ecommerce/products/',
+					url: module_path + 'products/',
 					type: 'POST',
 					data: data,
 					success: function (response) {
@@ -253,7 +253,7 @@ var app = {
 								'<div class = "col-sm-3">' + 
 									'<span class="unset-image glyphicon glyphicon-remove text-danger lead m-0 c-p" id="unset-' + image + '" title="Delete image"></span>' + 
 									'<span class="set-featured-image glyphicon glyphicon-star-empty text-warning lead m-0 c-p" id="featured-' + image + '" title="Set as featured image"></span>' + 
-									'<img src = "/ecommerce/' + image + '" class = "img-thumbnail img-responsive" />' + 
+									'<img src = "' + module_path + image + '" class = "img-thumbnail img-responsive" />' + 
 								'</div>'
 							);
 						});
@@ -288,7 +288,7 @@ var app = {
 					if(response == 0){
 						Lobibox.notify('error', {msg: response.message, size: 'mini', sound: false});
 					} else {
-						window.location.href = '/ecommerce/user/product/update/' + response.message + '?status=created';
+						window.location.href = module_path + 'user/product/update/' + response.message + '?status=created';
 					}
 				}
             });
@@ -312,7 +312,7 @@ var app = {
 				}
 				
 				$.ajax({
-					url: '/ecommerce/user/product/unset-product/',
+					url: module_path + 'user/product/unset-product/',
 					type: 'POST',
 					data: data,
 					success: function (response) {
@@ -339,7 +339,7 @@ var app = {
 				var parent_element = $(this).parent();
 				
 				$.ajax({
-					url: '/ecommerce/user/product/update/unset-image/',
+					url: module_path + 'user/product/update/unset-image/',
 					type: 'POST',
 					data: {
 						'action': 'unset-image',
@@ -377,7 +377,7 @@ var app = {
 					
 				} else {
 					$.ajax({
-						url: '/ecommerce/user/product/update/set-featured-image/',
+						url: module_path + 'user/product/update/set-featured-image/',
 						type: 'POST',
 						data: {
 							'action': 'set-featured-image',
