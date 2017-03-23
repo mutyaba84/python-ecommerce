@@ -1,5 +1,7 @@
 # Python E-commerce
 
+![alt tag](http://carlofontanos.com/wp-content/uploads/2017/03/python-ecommerce-using-django-watermarked.jpg)
+
 A starter template madule for creating complex e-commerce web applications. Developed using Django v1.10.6 with best practices in mind.
 
 ### YouTube Demo: 
