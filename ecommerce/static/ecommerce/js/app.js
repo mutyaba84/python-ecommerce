@@ -98,7 +98,7 @@ var app = {
 		this.ajax_get_user_items_pagination = function(page, th_name, th_sort){
 			
 			if($(".pagination-container").length > 0 && $(".products-view-user").length > 0){
-				$(".pagination-container").html('<img src="img/loading.gif" class="ml-tb" />');
+				wave_box('on');
 				
 				var post_data = {
 					page: page,
@@ -135,6 +135,7 @@ var app = {
 								}
 							});
 						}
+						wave_box('off');
 					}
 				});
 			}
