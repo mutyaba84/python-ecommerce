@@ -182,7 +182,7 @@ var app = {
 		this.ajax_get_all_items_pagination = function(page, order_by_name, order_by_sort){
 			
 			if($(".pagination-container").length > 0 && $('.products-view-all').length > 0 ){
-				$(".pagination-container").html('<img src="img/loading.gif" class="ml-tb" />');
+				$(".pagination-container").html(item_pagination_preloader());
 				
 				var post_data = {
 					page: page,
