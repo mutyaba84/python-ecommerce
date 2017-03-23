@@ -15,19 +15,19 @@
 					<div class="col-md-8">
 						<div class="form-group">
 							<label>Name</label>
-							<input type="text" class="form-control" name="name" value="{{ product.name }}" />
+							{{ form.name }}
 						</div>
 						<div class="form-group">
 							<label>Description</label>
-							<textarea id="ck-editor-area" class="form-control" name="content">{{ product.content }}</textarea>
+							{{ form.content }}
 						</div>
 						<div class="form-group">
 							<label>Short Description</label>
-							<textarea class="form-control" name="excerpt" rows="7">{{ product.excerpt }}</textarea>
+							{{ form.excerpt }}
 						</div>
 						<div class="form-group ml-t">
 							<label>Upload Images</label>
-							<input type = "file" name = "images" accept = "image/*" class = "form-control image-input" multiple />
+							{{ form.images }}
 							<hr />
 							
 							<div class = "clearfix m-t images-section">
@@ -58,19 +58,16 @@
 							<label>Price</label>
 							<div class="input-group">
 								<div class="input-group-addon">$</div>
-								<input type="text" class="form-control" name="price" value="{{ product.price }}" placeholder="Amount">
+								{{ form.price }}
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Status</label>
-							<select class="form-control" name="status">
-								<option value="1" {% if product.status == 1 %}selected{% endif %}>Active</option>
-								<option value="0" {% if product.status == 0 %}selected{% endif %}>Inactive</option>
-							</select>
+							{{ form.status }}
 						</div>
 						<div class="form-group">
 							<label>Quantity</label>
-							<input type="number" class="form-control" name="quantity" value="{{ product.quantity }}" />
+							{{ form.quantity }}
 						</div>
 						<input type="submit" class="btn btn-success" value="Update" />
 					</div>
