@@ -55,3 +55,55 @@ function get_url_value(variable) {
    }
    return(false);
 }
+
+function item_pagination_preloader(){
+	var preloader = '';
+	
+	for( i = 1; i <= 4; i++ ){
+		preloader += 
+		'<div class="col-sm-3 col-xs-6 p-lr">' + 
+			'<div class="panel panel-default">' + 
+				'<div class="panel-heading clearfix">' + 
+					'<div class="animate-bg col-xs-9"><br /></div>' + 
+				'</div>' + 
+				'<div class="clearfix">' + 
+					'<div><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>' + 
+				'</div>' + 
+				'<div class="list-group">' + 
+					'<div class="list-group-item">' + 
+						'<div class="clearfix">' + 
+							'<div class="col-xs-3 animate-bg"><br /><br /></div>' + 
+							'<div class="col-xs-9 p-l">' + 
+								'<p class="animate-bg"></p>' + 
+								'<p class="animate-bg col-xs-4"></p>' + 
+							'</div>' + 
+						'</div>' + 
+					'</div>' + 
+					'<div class="list-group-item">' + 
+						'<div class="clearfix">' + 
+							'<div class="col-xs-3 animate-bg"><br /><br /></div>' + 
+							'<div class="col-xs-9 p-l">' + 
+								'<p class="animate-bg"></p>' + 
+								'<p class="animate-bg col-xs-4"></p>' + 
+							'</div>' + 
+						'</div>' + 
+					'</div>' + 
+					'<div class="list-group-item">' + 
+						'<div class="clearfix">' + 
+							'<div class="col-xs-3 animate-bg"><br /><br /></div>' + 
+							'<div class="col-xs-9 p-l">' + 
+								'<p class="animate-bg"></p>' + 
+								'<p class="animate-bg col-xs-4"></p>' + 
+							'</div>' + 
+						'</div>' + 
+					'</div>' + 
+					'<div class="list-group-item">' + 
+						'<div class="animate-bg"><br /><br /></div>' + 
+					'</div>' + 
+				'</div>' + 
+			'</div>' + 
+		'</div>';
+	}
+	
+	return preloader;
+}
