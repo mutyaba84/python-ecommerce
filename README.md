@@ -22,7 +22,7 @@ A starter template madule for creating complex e-commerce web applications. Deve
 1. Make sure you have latest python installed in your computer, you can download python from here: 		
 	+ https://www.tutorialspoint.com/django/django_environment.htm
 2. Install django using pip:
-	+ pip install Django==1.10.6
+	+ pip install Django==1.11.2
 or get the latest version here: https://www.djangoproject.com/download/
 3. Verify your installation, run the following command:
 	+ python -m django –version
@@ -30,7 +30,10 @@ or get the latest version here: https://www.djangoproject.com/download/
 ## Setting up a new project in Django
 1. From your command line, navigate to where you want to save your projects, then create a new project:
 	+ django-admin startproject myproject
-2. Now that your project is created and configured make sure it’s working:
+2. Setup migrations
+	+ Run python manage.py makemigrations to create migrations
+	+ Run python manage.py migrate to apply those changes to the database.
+3. Now that your project is created and configured make sure it’s working:
 	+ python manage.py runserver
 	+ Navigate to http://127.0.0.1:8000/ in your browser to view the application.
 		+ By default, the runserver command starts the development server on the internal IP at port 8000.
